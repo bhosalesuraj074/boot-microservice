@@ -18,8 +18,8 @@ public class DepositController {
     private  RestTemplate restTemplate;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addBalance(@RequestBody TransactionRequest request){
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<String> addBalance(@RequestBody TransactionRequest request){
+        /*Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());
         //get the user
         UserAccount receiver =  restTemplate.getForObject("http://localhost:8080/user/"+request.getReceiver(), UserAccount.class);
@@ -31,7 +31,16 @@ public class DepositController {
         restTemplate.put("http://localhost:8080/user/"+receiver.getUserId()+"/balance", updatedBalance);
         response.put("status", HttpStatus.OK.value());
         response.put("message", "Amount Transferred in "+ receiver.getUserName()+" account");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);*/
+
+        UserAccount receiver =  restTemplate.getForObject("http://localhost:8080/user/"+request.getReceiver(), UserAccount.class);
+        if (receiver == null){
+
+            return ResponseEntity.notFound().build();
+        }
+        double updatedBalance = receiver.getBalance() + request.getAmount();
+        restTemplate.put("http://localhost:8080/user/"+receiver.getUserId()+"/balance", updatedBalance);
+        return ResponseEntity.ok("Amount Transferred in " + receiver.getUserName() + " account");
     }
 
 }

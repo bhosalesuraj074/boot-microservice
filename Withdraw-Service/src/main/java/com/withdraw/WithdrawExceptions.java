@@ -9,6 +9,7 @@ public class WithdrawExceptions{
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<String> globalException(Exception e){
+        System.out.println("Exception occurred: " + e.getMessage());
         return ResponseEntity.badRequest().body("Something went wrong...");
     }
 }
