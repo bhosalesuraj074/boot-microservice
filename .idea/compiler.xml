@@ -3,16 +3,6 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for User-Service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
-        <module name="DEPOSIT-SERVICE" />
-        <module name="User-Service" />
-      </profile>
       <profile name="Annotation profile for Withdraw-Service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -22,6 +12,17 @@
         </processorPath>
         <module name="WITHDRAW-SERVICE" />
       </profile>
+      <profile name="Annotation profile for ACCOUNT-ORIGINATION" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="DEPOSIT-SERVICE" />
+        <module name="ACCOUNT-ORIGINATION" />
+        <module name="User-Service" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Deposit-Service" target="21" />
@@ -30,6 +31,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ACCOUNT-ORIGINATION" options="-parameters" />
       <module name="DEPOSIT-SERVICE" options="-parameters" />
       <module name="Deposit-Service" options="-parameters" />
       <module name="User-Service" options="-parameters" />
