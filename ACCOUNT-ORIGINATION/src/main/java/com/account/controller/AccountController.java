@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/account")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class AccountController {
     @Autowired
     private AccountService service;
@@ -28,15 +29,16 @@ public class AccountController {
                     .body(ApiResponse.error(404, "No user found"));
 
         return ResponseEntity
-                .status(HttpStatus.FOUND)
+                .status(HttpStatus.OK)
                 .body(ApiResponse.success("users found", users));
+
     }
 
     @GetMapping("/get/{id}")
     private ResponseEntity<ApiResponse<User>> getUserById(@PathVariable long id){
         User user = service.loadUserById(id);
         return ResponseEntity
-                .status(HttpStatus.FOUND)
+                .status(HttpStatus.OK)
                 .body(ApiResponse.success("user found having name: "+ user.getFullName(),  user));
     }
 

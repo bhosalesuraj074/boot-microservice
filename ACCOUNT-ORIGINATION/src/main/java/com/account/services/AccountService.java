@@ -19,25 +19,31 @@ public class AccountService {
     @Autowired
     private AccountRepository repository;
 
-    @Cacheable(value = "user", key = "'all'")
-    public List<User> loadAllUsers(){
-        return  repository.findAll();
+    // Cache the full list
+    @Cacheable(value = "users")
+    public List<User> loadAllUsers() {
+        return repository.findAll();
     }
 
+    // Cache by user ID
     @Cacheable(value = "user", key = "#id")
-    public User loadUserById(long id){
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found with id "+id));
+    public User loadUserById(long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found with id " + id));
     }
 
-    @CachePut(value = "user", key = "#id")
+    // Save new user and put in cache with new id
+    @CachePut(value = "user", key = "#result.id")
+    @CacheEvict(value = {"user", "users"}, allEntries = true)
     public User save(User user) {
         return repository.save(user);
     }
 
-    @CachePut(value = "user", key = "#result.id")
-    @CacheEvict(value = "user", key = "'all'")
-    public User updateUserDetails(long id, User user){
-        User oldUser  = loadUserById(id);
+    // Update existing user and refresh cache
+    @CachePut(value = "user", key = "#id")
+    @CacheEvict(value = {"user", "users"}, allEntries = true)
+    public User updateUserDetails(long id, User user) {
+        User oldUser = loadUserById(id);
         oldUser.setFirstName(user.getFirstName());
         oldUser.setLastName(user.getLastName());
         oldUser.setEmail(user.getEmail());
@@ -45,11 +51,12 @@ public class AccountService {
         oldUser.setDateOfBirth(user.getDateOfBirth());
         oldUser.setAddress(user.getAddress());
         return repository.save(oldUser);
-
     }
 
-    @CacheEvict(value = "user", key = "#id")
+    // Remove from cache when deleted
+    @CacheEvict(value = {"user", "users"}, allEntries = true)
     public void closeAccount(long id) {
         repository.deleteById(id);
     }
 }
+
