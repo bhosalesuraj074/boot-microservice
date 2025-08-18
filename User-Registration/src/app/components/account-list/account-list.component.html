@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 shadow rounded py-5 mt-5">
+
+      <div class="text-container mb-4">
+        <!-- back button for the to navigate home page -->
+
+        <h2 class="bg-light rounded-4 p-3">
+                <div class="d-flex align-items-center justify-content-center position-relative">
+                  <!-- Home button aligned to the left -->
+                  <mat-icon class="position-absolute start-0 ms-3" routerLink="/home">arrow_back</mat-icon>
+
+                  <!-- Centered content -->
+                  <div class="text-info d-flex align-items-center justify-content-center">
+                    <mat-icon class="me-2">account_balance</mat-icon>
+                    <span class="text-secondary">Account List</span>
+                  </div>
+                </div>
+        </h2>
+        <p class="text-center text-secondary">
+          Here you can find the list of all accounts.
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phoneNumber }}</td>
+              <td>
+                <!-- Add action buttons here if needed -->
+                <mat-icon class="text-primary" (click)="editUser(user.id)" title="Edit" >edit</mat-icon>
+                <mat-icon class="text-danger" (click)="deleteUser(user.id)" title="Delete" >delete</mat-icon>
+
+
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

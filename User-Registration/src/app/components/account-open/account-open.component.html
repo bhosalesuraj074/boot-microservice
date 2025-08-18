@@ -1,0 +1,260 @@
+   <div class="container mt-5">
+      <div class="row justify-content-center">
+         <div class="col-md-8 shadow rounded py-5 mt-5">
+            <div class="text-container mb-4">
+
+               <h2 class="bg-light rounded-4 p-3">
+                <div class="d-flex align-items-center justify-content-center position-relative">
+                  <mat-icon class="position-absolute start-0 ms-3" routerLink="/home">arrow_back</mat-icon>
+
+                  <div class="text-info d-flex align-items-center justify-content-center">
+                    <mat-icon class="me-2">account_balance</mat-icon>
+                    Open Account
+                  </div>
+                </div>
+              </h2>
+
+
+            </div>
+            <form [formGroup]="user" (ngSubmit)="onSubmit()">
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 ">
+                      <mat-form-field class="col-md-6 full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName" placeholder="Enter First Name"  required>
+                        <mat-error class="text-danger" *ngIf="user.get('firstName')?.invalid && user.get('firstName')?.touched">
+                          <mat-error>
+                              <mat-icon>error</mat-icon>
+                              <span *ngIf="user.get('firstName')?.hasError('minlength')">First Name must be at least 3 characters long</span>
+                              <span *ngIf="user.get('firstName')?.hasError('required')">Name is required</span>
+                            </mat-error>
+                        </mat-error>
+                         <mat-hint class="text-success" *ngIf="user.get('firstName')?.valid && user.get('firstName')?.touched">
+                          <mat-icon>check_circle</mat-icon>
+                        </mat-hint>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- user lastname -->
+                  <div class="col-md-6 mb-3">
+                      <mat-form-field class="col-md-6 full-width" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName" placeholder="Enter Last Name" required>
+                        <mat-error class="text-danger" *ngIf="user.get('lastName')?.invalid && user.get('lastName')?.touched">
+                          <mat-error>
+                              <mat-icon>error</mat-icon>
+                              <span *ngIf="user.get('lastName')?.hasError('minlength')">Last Name must be at least 3 characters long</span>
+                              <span *ngIf="user.get('lastName')?.hasError('required')">Last Name is required</span>
+                            </mat-error>
+                        </mat-error>
+                        <!-- //success -->
+                        <mat-hint class="text-success" *ngIf="user.get('lastName')?.valid && user.get('lastName')?.touched">
+                          <mat-icon>check_circle</mat-icon>
+                        </mat-hint>
+                      </mat-form-field>
+                  </div>
+
+
+                <!-- user email input -->
+                 <div class="col-md-6 mb-3">
+                    <mat-form-field class="col-md-6 full-width" appearance="outline">
+                      <mat-label>Email</mat-label>
+                      <input matInput formControlName="email" placeholder="Enter Email" required>
+                      <mat-error class="text-danger" *ngIf="user.get('email')?.invalid && user.get('email')?.touched">
+                        <mat-error>
+                            <mat-icon>error</mat-icon>
+                            <span *ngIf="user.get('email')?.hasError('email')">Please enter a valid email address</span>
+                            <span *ngIf="user.get('email')?.hasError('required')">Email is required</span>
+                            <span *ngIf="user.get('email')?.hasError('invalidEmail')">accepted email format id example@gmail.com </span>
+                        </mat-error>
+                      </mat-error>
+                      <mat-hint class="text-success" *ngIf="user.get('email')?.valid && user.get('email')?.touched">
+                        <mat-icon>check_circle</mat-icon>
+                      </mat-hint>
+                    </mat-form-field>
+                 </div>
+
+
+                 <!-- user phone number -->
+                  <div class="col-md-6 mb-3">
+                      <mat-form-field class="col-md-6 full-width" appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput type="number" formControlName="phoneNumber" placeholder="Enter Phone Number" required>
+                        <mat-error class="text-danger" *ngIf="user.get('phoneNumber')?.invalid && user.get('phoneNumber')?.touched">
+                          <mat-error>
+                              <mat-icon>error</mat-icon>
+                              <span *ngIf="user.get('phoneNumber')?.hasError('pattern')">Please enter a valid phone number</span>
+                              <span *ngIf="user.get('phoneNumber')?.hasError('required')">Phone Number is required</span>
+                            </mat-error>
+                        </mat-error>
+                        <mat-hint class="text-success" *ngIf="user.get('phoneNumber')?.valid && user.get('phoneNumber')?.touched">
+                          <mat-icon>check_circle</mat-icon>
+                        </mat-hint>
+                      </mat-form-field>
+                  </div>
+
+
+
+                <!-- user date of birth -->
+                <div class="col-md-6 mb-3">
+                    <mat-form-field class="col-md-6 full-width" appearance="outline">
+                      <mat-label>Date of Birth</mat-label>
+                      <input matInput  [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="Select Date of Birth" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error class="text-danger" *ngIf="user.get('dateOfBirth')?.invalid && user.get('dateOfBirth')?.touched">
+                        <mat-error>
+                            <mat-icon>error</mat-icon>
+                            <span *ngIf="user.get('dateOfBirth')?.hasError('required')">Date of Birth is required</span>
+                            <!-- futureDate -->
+                            <span *ngIf="user.get('dateOfBirth')?.hasError('futureDate')">Date of Birth cannot be in the future</span>
+                            <!-- ageLimit -->
+                            <span *ngIf="user.get('dateOfBirth')?.hasError('ageLimit')">You must be at least 18 years old to register</span>
+                          </mat-error>
+                      </mat-error>
+                      <mat-hint class="text-success" *ngIf="user.get('dateOfBirth')?.valid && user.get('dateOfBirth')?.touched">
+                        <mat-icon>check_circle</mat-icon>
+                      </mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <!----------------------------------- user account ----------------------------------------------->
+
+                  <div class="col-md-6 mb-3" formGroupName="account">
+                      <mat-form-field class="col-md-6 full-width" appearance="outline">
+                        <mat-label>Addhar Number </mat-label>
+                        <input matInput formControlName="aadhaarNumber" placeholder="Enter Addhar Number" required>
+                        <mat-error class="text-danger" *ngIf="user.get('account')?.get('aadhaarNumber')?.invalid && user.get('account')?.get('aadhaarNumber')?.touched">
+                          <mat-error>
+                              <mat-icon>error</mat-icon>
+                              <span *ngIf="user.get('account')?.get('aadhaarNumber')?.hasError('pattern')">Please enter a valid Addhar Number</span>
+                              <span *ngIf="user.get('account')?.get('aadhaarNumber')?.hasError('required')">Addhar Number is required</span>
+                          </mat-error>
+                        </mat-error>
+                        <mat-hint class="text-success" *ngIf="user.get('account')?.get('aadhaarNumber')?.valid && user.get('account')?.get('aadhaarNumber')?.touched">
+                          <mat-icon>check_circle</mat-icon>
+                        </mat-hint>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6 mb-3" formGroupName="account">
+                    <mat-form-field class="col-md-6 full-width" appearance="outline">
+                      <mat-label>Account Type</mat-label>
+                      <mat-select formControlName="accountType" required>
+                        <mat-option value="SAVING">Savings</mat-option>
+                        <mat-option value="CURRENT">Current</mat-option>
+                        <mat-option value="SALARY">Salary</mat-option>
+                      </mat-select>
+                      <mat-error class="text-danger" *ngIf="user.get('account')?.get('accountType')?.invalid && user.get('account')?.get('accountType')?.touched">
+                        <span *ngIf="user.get('account')?.get('accountType')?.hasError('required')">Account Type is required</span>
+                      </mat-error>
+                      <mat-hint class="text-success" *ngIf="user.get('account')?.get('accountType')?.valid && user.get('account')?.get('accountType')?.touched">
+                        <mat-icon>check_circle</mat-icon>
+                      </mat-hint>
+                    </mat-form-field>
+                  </div>
+
+                <div class="col-md-6" formGroupName="address">
+                  <mat-form-field class="col-md-6 full-width" appearance="outline">
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" placeholder="Enter street" required/>
+                    <mat-error class="text-danger" *ngIf="user.get('address')?.get('street')?.invalid && user.get('address')?.get('street')?.touched">
+                      <mat-error>
+                          <mat-icon>error</mat-icon>
+                          <span *ngIf="user.get('address')?.get('street')?.hasError('required')">Street is required</span>
+                      </mat-error>
+                    </mat-error>
+                    <mat-hint class="text-success" *ngIf="user.get('address')?.get('street')?.valid && user.get('address')?.get('street')?.touched">
+                      <mat-icon>check_circle</mat-icon>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6" formGroupName="address">
+                  <mat-form-field class="col-md-6 full-width" appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="city" placeholder="Enter city" required/>
+                    <mat-error class="text-danger" *ngIf="user.get('address')?.get('city')?.invalid && user.get('address')?.get('city')?.touched">
+                      <mat-error>
+                          <mat-icon>error</mat-icon>
+                          <span *ngIf="user.get('address')?.get('city')?.hasError('required')">City is required</span>
+                      </mat-error>
+                    </mat-error>
+                    <mat-hint class="text-success" *ngIf="user.get('address')?.get('city')?.valid && user.get('address')?.get('city')?.touched">
+                      <mat-icon>check_circle</mat-icon>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6" formGroupName="address">
+                  <mat-form-field class="col-md-6 full-width" appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input matInput formControlName="state" placeholder="Enter state" required/>
+                    <mat-error class="text-danger" *ngIf="user.get('address')?.get('state')?.invalid && user.get('address')?.get('state')?.touched">
+                      <mat-error>
+                          <mat-icon>error</mat-icon>
+                          <span *ngIf="user.get('address')?.get('state')?.hasError('required')">State is required</span>
+                      </mat-error>
+                    </mat-error>
+                    <mat-hint class="text-success" *ngIf="user.get('address')?.get('state')?.valid && user.get('address')?.get('state')?.touched">
+                      <mat-icon>check_circle</mat-icon>
+                    </mat-hint>
+                  </mat-form-field>
+                </div>
+
+              <!-- // contry -->
+              <div class="col-md-6" formGroupName="address">
+                <mat-form-field class="col-md-6 full-width" appearance="outline">
+                  <mat-label>Country</mat-label>
+                  <input matInput formControlName="country" placeholder="Enter country" required/>
+                  <mat-error class="text-danger" *ngIf="user.get('address')?.get('country')?.invalid && user.get('address')?.get('country')?.touched">
+                    <mat-error>
+                        <mat-icon>error</mat-icon>
+                        <span *ngIf="user.get('address')?.get('country')?.hasError('required')">Country is required</span>
+                    </mat-error>
+                  </mat-error>
+                  <mat-hint class="text-success" *ngIf="user.get('address')?.get('country')?.valid && user.get('address')?.get('country')?.touched">
+                    <mat-icon>check_circle</mat-icon>
+                  </mat-hint>
+                </mat-form-field>
+                </div>
+
+
+              <div class="col-md-6 mb-3" formGroupName = "address">
+                <mat-form-field class="col-md-6 full-width" appearance="outline">
+                  <mat-label>Zip Code</mat-label>
+                  <input matInput formControlName="postalCode" placeholder="Enter Zip Code" required type="number">
+                  <mat-error class="text-danger" *ngIf="user.get('address')?.get('postalCode')?.invalid && user.get('address')?.get('postalCode')?.touched">
+                    <mat-error>
+                        <mat-icon>error</mat-icon>
+                        <span *ngIf="user.get('address')?.get('postalCode')?.hasError('pattern')">Please enter a valid Zip Code</span>
+                        <span *ngIf="user.get('address')?.get('postalCode')?.hasError('required')">Zip Code is required</span>
+                    </mat-error>
+                  </mat-error>
+                  <mat-hint class="text-success" *ngIf="user.get('address')?.get('postalCode')?.valid && user.get('address')?.get('postalCode')?.touched">
+                    <mat-icon>check_circle</mat-icon>
+                  </mat-hint>
+                </mat-form-field>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                <!-- //matbutton raised -->
+                <button mat-raised-button color="primary" [disabled]="user.invalid" type="submit" class="w-100">
+                  Submit
+                </button>
+
+              </div>
+              <div class="col-md-6">
+                <button mat-raised-button color="warn" type="reset" class="w-100" (click)="user.reset()">
+                  Reset
+                </button>
+              </div>
+
+              </div>
+
+
+            </form>
+         </div>
+      </div>
+   </div>
+
