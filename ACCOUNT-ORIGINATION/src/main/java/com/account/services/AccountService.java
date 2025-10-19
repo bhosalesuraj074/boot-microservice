@@ -3,14 +3,12 @@ package com.account.services;
 import com.account.dao.User;
 import com.account.exceptions.ResourceNotFoundException;
 import com.account.repository.AccountRepository;
-import com.account.utility.ApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
